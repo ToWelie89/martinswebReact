@@ -124,10 +124,10 @@ window.start3dAnimation = () => {
     //renderer.setClearAlpha(0);
     document.getElementById('sonesson3dlogo').appendChild(renderer.domElement);
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.4);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.35);
     scene.add(ambientLight);
 
-    const spotLight = new THREE.SpotLight(0xffffff, 3);
+    const spotLight = new THREE.SpotLight(0xffffff, 0.3);
     spotLight.position.set(0, 30, 30);
     spotLight.castShadow = true;
     /*
@@ -146,7 +146,7 @@ window.start3dAnimation = () => {
     /* const spotLightHelper = new THREE.SpotLightHelper(spotLight, 1);
     scene.add(spotLightHelper); */
 
-    directionalLight = new THREE.DirectionalLight(0xffffff, 4);
+    directionalLight = new THREE.DirectionalLight(0xffffff, 1.4);
     directionalLight.castShadow = true;
     directionalLight.position.set(0, 100, 20)
     directionalLight.shadow.mapSize.width = 512;
