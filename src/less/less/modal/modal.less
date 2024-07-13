@@ -2,38 +2,102 @@
     background: @mainContentBg;
     border: none;
     border-radius: 0px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
 }
 
 .modal-header {
+    border-radius: 0px;
+    display: block;
+
     h4 {
         font-family: ProxiBold;
         font-size: 1.6em;
         width: 90%;
     }
+
     i {
         font-size: 1.4em;
     }
+
     border-bottom: none;
     background-color: @niceBlue;
     color: white;
+
+    .close {
+        -webkit-appearance: none;
+        padding: 0;
+        cursor: pointer;
+        background: 0 0;
+        border: 0;
+        float: right;
+        font-size: 21px;
+        font-weight: 700;
+        line-height: 1;
+        color: #000;
+        text-shadow: 0 1px 0 #fff;
+        filter: alpha(opacity=20);
+        opacity: .2;
+
+        &:hover {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+            opacity: .5;
+        }
+    }
 }
 
 .modal-body {
     min-height: 150px;
+
     p {
         font-family: ProxiRegular;
     }
+
     ul {
         padding-left: 15px;
     }
 }
 
 .modal-backdrop {
-    background-color: rgba(9,6,66,1);
+    background-color: rgba(9, 6, 66, 1);
 }
 
 .modal-footer {
     a {
         margin-right: 5px !important;
+    }
+}
+
+#threeDModelModal {
+    .modal-dialog {
+        width: 1100px;
+
+        .modal-content {
+            width: 1100px;
+
+            #currentTabContent {
+                text-align: center;
+
+                img,
+                video {
+                    max-height: 800px;
+                }
+
+                #threeDModelPreview {
+                    aspect-ratio: 1.7777777777777777 !important;
+                    width: 100%;
+
+                    canvas {
+                        width: 100% !important;
+                        aspect-ratio: 1.7777777777777777 !important;
+                    }
+                }
+            }
+
+            #description {
+                font-size: 1.3em;
+            }
+        }
     }
 }

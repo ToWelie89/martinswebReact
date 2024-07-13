@@ -15,9 +15,34 @@
     />
     <meta name="author" content="Martin Sonesson" />
     <meta name="theme-color" content="#457bc3" />
+
+    <script type="importmap">
+      {
+          "imports": {
+              "three/addons/": "../node_modules/three/examples/jsm/",
+              "three/examples/jsm/": "../node_modules/three/examples/jsm/",
+              "three": "../node_modules/three/build/three.module.js"
+          }
+      }
+  </script>
+
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+    <script src='https://unpkg.com/trianglify@^4/dist/trianglify.bundle.js'></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
+    <script src="/src/js/threeAnimation.js" type="module"></script>
+    <script src="/src/js/triangAnimation.js"></script>
+
     <title>martinsonesson.se</title>
   </head>
   <body>
+    <p id="sizeIndicator"></p>
+    <div class="mainBg" id="mainBgTop"></div>
+    <div class="mainBg" id="mainBgBottom"></div>
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

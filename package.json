@@ -23,10 +23,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "bootstrap": "^5.3.3",
+    "jquery": "^3.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.1",
-    "styled-components": "^6.1.9"
+    "styled-components": "^6.1.9",
+    "three": "^0.149.0"
   },
   "resolutions": {
     "styled-components": "^5"

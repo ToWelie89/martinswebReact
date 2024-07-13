@@ -91,9 +91,6 @@ const Menu = () => {
       path: "",
     },
     {
-      name: "projects",
-    },
-    {
       name: "profile",
       children: [
         {
@@ -101,6 +98,20 @@ const Menu = () => {
         },
         {
           name: "cv",
+        },
+      ],
+    },
+    {
+      name: "projects",
+    },
+    {
+      name: "3d",
+      children: [
+        {
+          name: "3d prints",
+        },
+        {
+          name: "3d models",
         },
       ],
     },
@@ -140,7 +151,7 @@ const Menu = () => {
           </MenuLink>
         ))}
       </MenuWrapper>
-      {JSON.stringify(selectedParent)}
+      {/* {JSON.stringify(selectedParent)} */}
       <SubMenuWrapper id="subMenuContainer">
         <div
           className={`subMenuBar ${selectedParent?.children ? "" : "hidden"}`}

@@ -1,6 +1,7 @@
+/* import * as THREE from 'three'; */
+
+import { useEffect } from "react";
 import styled from "styled-components";
-/* import reactLogo from "./../assets/react.svg";
-import viteLogo from "./../assets/vite.svg"; */
 
 const Title = styled.h1`
   font-size: 1.5em;
@@ -17,9 +18,17 @@ const Test = styled.div`
 `;
 
 function Start() {
-    return (
-      <>
-        <Title>LOL</Title>
+  useEffect(() => {
+    console.log('TEST ')
+    
+    if (document.getElementById('sonesson3dlogo')) {
+      (window as any).start3dAnimation();
+    }
+  }, []);
+
+  return (
+    <>
+      {/* <Title>LOL</Title>
         <h1>Vite + React</h1>
         <div className="card">
           <p>
@@ -32,9 +41,19 @@ function Start() {
         </Test>
         <p className="read-the-docs">
           Click on the Vite and React logos to learn more
-        </p>
-      </>
-    );
-  }
-  
-  export default Start;
+        </p> */}
+
+      <div className="centeringBox start">
+        <div className="centeringInnerBox notSelectable">
+          <div className="signature">
+            <div id="sonesson3dlogooverlay">
+            </div>
+            <div id="sonesson3dlogo"></div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default Start;
