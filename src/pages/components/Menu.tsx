@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const MenuWrapper = styled.div``;
@@ -12,12 +12,14 @@ const SubMenuLink = (props: any) => {
 
   return (
     <div
-      className={`link subMenuLink ${currentPage === props.name ? 'selected' : ''}`}
-      onClick={() => {
-        navigate(props.to);
-      }}
+      className={`link subMenuLink ${(currentPage === props.name || currentPage === props.path) ? 'selected' : ''}`}
     >
-      <a href="">{props.children}</a>
+      <div onClick={() => {
+        navigate(props.to);
+        props.callback();
+      }}>
+        {props.children}
+      </div>
     </div>
   );
 };
@@ -52,13 +54,9 @@ const getCurrentMainPage = () => {
     return "projects";
   } else if (page === "bio" || page === "cv") {
     return "profile";
-  } else if (
-    page === "blog" ||
-    page === "art" ||
-    page === "videos" ||
-    page === "photos" ||
-    page === "3dprints"
-  ) {
+  } else if (page === "3dprints" || page === "3dmodels") {
+    return "3d";
+  } else if (page === "blog" || page === "art") {
     return "misc";
   } else if (page.includes("blog/")) {
     return "misc";
@@ -80,9 +78,31 @@ const Menu = () => {
     children: [],
   });
   const [selectedMainPage, setSelectedMainPage] = useState("");
+  let location = useLocation();
 
   useEffect(() => {
     setSelectedMainPage(getCurrentMainPage());
+  }, [location]);
+
+  useEffect(() => {
+    setSelectedMainPage(getCurrentMainPage());
+
+    const item = MENU_CONFIGURATION.find(x => x.name === getCurrentMainPage());
+
+    if (item && item.children && item.children.length > 0) {
+      setSelectedParent(item);
+      $('.subMenuBar').slideDown(350);
+    }
+  }, []);
+
+  useEffect(() => {
+    setSelectedMainPage(getCurrentMainPage());
+
+    const item = MENU_CONFIGURATION.find(x => x.name === selectedParent.name);
+
+    if (item && item.children && item.children.length > 0) {
+      $('.subMenuBar').slideDown(350);
+    }
   }, [selectedParent]);
 
   const MENU_CONFIGURATION: IMenuItem[] = [
@@ -109,9 +129,11 @@ const Menu = () => {
       children: [
         {
           name: "3d prints",
+          path: '3dprints'
         },
         {
           name: "3d models",
+          path: '3dmodels'
         },
       ],
     },
@@ -135,14 +157,16 @@ const Menu = () => {
           <MenuLink
             key={x.name}
             to={`/${x.path !== undefined ? x.path : x.name}`}
-            className={`link mainMenuLink ${
-              x.name === selectedMainPage ? "active" : ""
-            }`}
+            className={`link mainMenuLink ${x.name === selectedMainPage ? "active" : ""
+              }`}
             onClick={(e) => {
               if (x.children) {
                 e.preventDefault();
               }
+              //document.querySelector('.subMenuBar').style.display = 'block';
+              //$('.subMenuBar').slideUp(350);
               setSelectedParent(x);
+              //$('.subMenuBar').slideDown(350);
             }}
           >
             <span data-hover={x.name.toUpperCase()}>
@@ -157,7 +181,9 @@ const Menu = () => {
           className={`subMenuBar ${selectedParent?.children ? "" : "hidden"}`}
         >
           {selectedParent?.children?.map((x: IMenuItem) => (
-            <SubMenuLink name={x.name} key={x.name} to={`/${x.name}`}>
+            <SubMenuLink name={x.path ?? x.name} key={x.name} to={`/${x.path ?? x.name}`} callback={() => {
+              setSelectedMainPage(getCurrentMainPage());
+            }}>
               {x.name.toUpperCase()}
             </SubMenuLink>
           ))}

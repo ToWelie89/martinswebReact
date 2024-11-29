@@ -1,76 +1,72 @@
+import Carousel from "../components/Carousel";
 import { LoadBox } from "../components/LoadBox";
-import ProjectModal from "../components/ProjectModal"
-import { ProjectStatus } from "../components/ProjectStatus";
-import { closeModal } from "./ModalHelpers";
+import ProjectModal from "../components/ProjectModal";
+import TechDependencies from "../components/TechDependencies";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import ProjectModalHeader from "./projectModalComponents/ProjectModalHeader";
+import { useState } from "react";
 
-export const ValbarometernModal = (props : any) => {
-
+export const ValbarometernModal = (props: any) => {
     let loading = false;
+    
+    const tabs = ['Screenshots'];
+    const dependencies = ['git', 'npm', 'grunt', 'html', 'css', 'javascript', 'mysql', 'firebase'];
+
+    const [activeTab, setActiveTab] = useState(tabs[0]);
 
     return (
-        <ProjectModal id="valbarometernModal">
-            <div className="modal-header">
-                <button type="button" className="close" onClick={() => closeModal(props.projectId ?? '')}>
-                    <i className="fa fa-times-circle" aria-hidden="true"></i>
-                </button>
-                <h4 className="modal-title">
-                    Valbarometern
-                </h4>
-            </div>
-            <div className="modal-body">
+        <ProjectModal id="valbarometernModal" onClose={props.onClose} isOpen={props.isOpen}>
+            <ProjectModalHeader label={"Valbarometern"} onClose={props.onClose} />
+            <div className="modal-body" style={{ height: 'calc(100% - 201px)' }}>
                 {
                     loading ? <LoadBox /> : null
                 }
-                {/* Statistics */}
-                {/* <div data-ng-include src="'includes/build/projectStatus.html'" data-ng-cloak></div> */}
-                {/* <ProjectStatus /> */}
+                <TechDependencies dependencies={dependencies}></TechDependencies>
 
                 <div className="projectTabsContainer marginTop">
-                    <div className="projectTab" /* data-ng-click="controller.selectTab('screenshots', 'valbarometern')" */ /* data-ng-className="{'projectTab--selected': controller.tabs['valbarometern'].selected == 'screenshots'}" */>
-                        Screenshots
-                    </div>
-                    <div className="projectTabContent" /* data-ng-hide="controller.tabs['valbarometern'].selected != 'screenshots'" */>
-                        {/* Carousel */}
-                        <div className="carousel slide projectCarousel" data-ride="carousel" style={{ height: "500px" }}>
-                            {/* Indicators */}
-                            <ol className="carousel-indicators">
-                                <li data-target="#myCarousel" data-slide-to="0" className="active"></li>
-                                <li data-target="#myCarousel" data-slide-to="1"></li>
-                                <li data-target="#myCarousel" data-slide-to="2"></li>
-                                <li data-target="#myCarousel" data-slide-to="3"></li>
-                                <li data-target="#myCarousel" data-slide-to="4"></li>
-                                <li data-target="#myCarousel" data-slide-to="5"></li>
-                                <li data-target="#myCarousel" data-slide-to="6"></li>
-                                <li data-target="#myCarousel" data-slide-to="7"></li>
-                                <li data-target="#myCarousel" data-slide-to="8"></li>
-                            </ol>
-                            {/* Wrapper for slides */}
-                            <div className="carousel-inner">
-                                <div className="item active">
-                                    <div className="itemImage" style={{ backgroundImage: "url(src/assets/vk_screenshots/1.png)", backgroundPosition: "center top", height: "500px", backgroundSize: "contain", backgroundRepeat: "no-repeat" }}>
-                                    </div>
-                                </div>
-                                <div className="item"><div className="itemImage" style={{ backgroundImage: "url(src/assets/vk_screenshots/2.png)", backgroundPosition: "center bottom", height: "500px", backgroundSize: "contain", backgroundRepeat: "no-repeat" }}></div></div>
-                                <div className="item"><div className="itemImage" style={{ backgroundImage: "url(src/assets/vk_screenshots/3.png)", backgroundPosition: "center bottom", height: "500px", backgroundSize: "contain", backgroundRepeat: "no-repeat" }}></div></div>
-                                <div className="item"><div className="itemImage" style={{ backgroundImage: "url(src/assets/vk_screenshots/4.png)", backgroundPosition: "center top", height: "500px", backgroundSize: "contain", backgroundRepeat: "no-repeat" }}></div></div>
-                                <div className="item"><div className="itemImage" style={{ backgroundImage: "url(src/assets/vk_screenshots/5.png)", backgroundPosition: "center top", height: "500px", backgroundSize: "contain", backgroundRepeat: "no-repeat" }}></div></div>
-                                <div className="item"><div className="itemImage" style={{ backgroundImage: "url(src/assets/vk_screenshots/6.png)", backgroundPosition: "center top", height: "500px", backgroundSize: "contain", backgroundRepeat: "no-repeat" }}></div></div>
-                                <div className="item"><div className="itemImage" style={{ backgroundImage: "url(src/assets/vk_screenshots/7.png)", backgroundPosition: "center top", height: "500px", backgroundSize: "contain", backgroundRepeat: "no-repeat" }}></div></div>
-                                <div className="item"><div className="itemImage" style={{ backgroundImage: "url(src/assets/vk_screenshots/analytics/1.png", backgroundPosition: "center center", height: "500px" }}></div></div>
-                                <div className="item"><div className="itemImage" style={{ backgroundImage: "url(src/assets/vk_screenshots/8.png)", backgroundPosition: "center center", height: "500px", backgroundSize: "contain", backgroundRepeat: "no-repeat" }}></div></div>
+                    {
+                        tabs.map((x, i) => (
+                            <div key={"modal-tab-" + i} className={`projectTab ${x === activeTab ? 'projectTab--selected' : ''}`} onClick={() => setActiveTab(x)}>
+                                {x}
                             </div>
-
-                            {/* Left and right controls */}
-                            <a className="left carousel-control" data-slide="prev">
-                                <span className="glyphicon glyphicon-chevron-left"></span>
-                                <span className="sr-only">Previous</span>
-                            </a>
-                            <a className="right carousel-control" data-slide="next">
-                                <span className="glyphicon glyphicon-chevron-right"></span>
-                                <span className="sr-only">Next</span>
-                            </a>
-                        </div>
-                    </div>
+                        ))
+                    }
+                    {
+                        activeTab === tabs[0] ? // Screenshots
+                        (
+                            <div className="projectTabContent">
+                                <Carousel showArrows={true} showThumbs={false} showIndicators={true} showStatus={false} useKeyboardArrows={true} dynamicHeight={true}>
+                                    <div>
+                                        <img src="./../src/assets/vk_screenshots/1.png" />{/* <p className="legend">Legend 1</p> */}
+                                    </div>
+                                    <div>
+                                        <img src="./../src/assets/vk_screenshots/2.png" />{/* <p className="legend">Legend 2</p> */}
+                                    </div>
+                                    <div>
+                                        <img src="./../src/assets/vk_screenshots/3.png" />{/* <p className="legend">Legend 2</p> */}
+                                    </div>
+                                    <div>
+                                        <img src="./../src/assets/vk_screenshots/4.png" />{/* <p className="legend">Legend 2</p> */}
+                                    </div>
+                                    <div>
+                                        <img src="./../src/assets/vk_screenshots/5.png" />{/* <p className="legend">Legend 2</p> */}
+                                    </div>
+                                    <div>
+                                        <img src="./../src/assets/vk_screenshots/6.png" />{/* <p className="legend">Legend 2</p> */}
+                                    </div>
+                                    <div>
+                                        <img src="./../src/assets/vk_screenshots/7.png" />{/* <p className="legend">Legend 2</p> */}
+                                    </div>
+                                    <div>
+                                        <img src="./../src/assets/vk_screenshots/analytics/1.png" />{/* <p className="legend">Legend 2</p> */}
+                                    </div>
+                                    <div>
+                                        <img src="./../src/assets/vk_screenshots/8.png" />{/* <p className="legend">Legend 2</p> */}
+                                    </div>
+                                </Carousel>
+                            </div>
+                        ) : null
+                    }
                 </div>
                 {/* Description */}
                 <div className="marginTop--double">
@@ -90,19 +86,19 @@ export const ValbarometernModal = (props : any) => {
                     </p>
                     <p className="marginTop">
                         Because of the high user participation we gained some interesting data regarding the users voting preferences, data that Bulletin has later used as sources for articles they written.
-                        Here are some examples: <a href="https://bulletin.nu/18-000-har-testat-bulletins-valbarometer-ovantat-resultat" target="_blank">article 1</a>, <a href="https://bulletin.nu/bulletins-valbarometer-det-blir-tufft-for-s-att-bilda-en-majoritetsregering" target="_blank">article 1</a>
+                        Here are some examples: <a href="https://bulletin.nu/18-000-har-testat-bulletins-valbarometer-ovantat-resultat" target="_blank">article 1</a>, <a href="https://bulletin.nu/bulletins-valbarometer-det-blir-tufft-for-s-att-bilda-en-majoritetsregering" target="_blank">article 2</a>
                     </p>
                 </div>
             </div>
             <div className="modal-footer">
                 <a className="button floatRight" href="https://valbarometern.com/" target="_blank">
-                    <p text="Valbarometern standalone site"></p>
+                    <p text="Standalone site"></p>
                 </a>
                 <a className="button floatRight" href="https://bulletin.nu/valkompass" target="_blank">
-                    <p text="Valkompass - hosted on Bulletin"></p>
+                    <p text="Valkompass hosted on Bulletin"></p>
                 </a>
                 <a className="button floatRight" href="https://bulletin.nu/valu" target="_blank">
-                    <p text="Valundersökning - hosted on Bulletin"></p>
+                    <p text="ValU hosted on Bulletin"></p>
                 </a>
                 <a className="button floatRight" href="https://bulletin.nu/18-000-har-testat-bulletins-valbarometer-ovantat-resultat" target="_blank">
                     <p text="Article 1"></p>

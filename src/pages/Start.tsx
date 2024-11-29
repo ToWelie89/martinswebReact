@@ -1,26 +1,9 @@
 /* import * as THREE from 'three'; */
 
 import { useEffect } from "react";
-import styled from "styled-components";
-
-const Title = styled.h1`
-  font-size: 1.5em;
-  text-align: center;
-  color: #bf4f74;
-`;
-
-const Test = styled.div`
-  background-color: red;
-
-  span {
-    background-color: green;
-  }
-`;
 
 function Start() {
-  useEffect(() => {
-    console.log('TEST ')
-    
+  useEffect(() => {    
     if (document.getElementById('sonesson3dlogo')) {
       (window as any).start3dAnimation();
     }

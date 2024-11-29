@@ -1,18 +1,12 @@
-import styled from "styled-components";
+import Modal from 'react-modal';
 
-const ModalContainer = styled.div`
-
-`
+Modal.setAppElement('body');
 
 const ProjectModal = (props: any) => {
     return (
-        <ModalContainer className="modal fade" id={props.id} role="dialog">
-            <div className="modal-dialog">
-                <div className="modal-content">
-                    {props.children}
-                </div>
-            </div>
-        </ModalContainer>
+        <Modal isOpen={props.isOpen} onRequestClose={props.onClose} overlayClassName={'projectModalOverlay'} closeTimeoutMS={300} className={props.extraClasses ?? ''}>
+            {props.children}
+        </Modal>
     )
 }
 

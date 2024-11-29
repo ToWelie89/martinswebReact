@@ -1,15 +1,26 @@
-import { LoadBox } from "./components/LoadBox";
-import ProjectModal from "./components/ProjectModal";
-import { ProjectStatus } from "./components/ProjectStatus";
-import { openModal } from "./projectModals/ModalHelpers";
-import { ValbarometernModal } from "./projectModals/valbarometernModal";
+import { useEffect, useState } from "react";
+import { BachelorsThesisModal } from "./projectModals/BachelorsThesisModal";
+import { BorghildModal } from "./projectModals/BorghildModal";
+import { BoxByDorisModal } from "./projectModals/BoxByDorisModal";
+import { FlappyDogeModal } from "./projectModals/FlappyDogeModal";
+import { FootballCupCalculatorModal } from "./projectModals/FootballCupCalculatorModal";
+import { GbgMuayThaiModal } from "./projectModals/GbgMuayThaiModal";
+import { InstagramAnalyzerModal } from "./projectModals/InstagramAnalyzerModal";
+import { MassStlExporterModal } from "./projectModals/MassStlExporterModal";
+import { MobileKeyringModal } from "./projectModals/MobileKeyringModal";
+import { PortfolioModal } from "./projectModals/PortfolioModal";
+import { SnakeModal } from "./projectModals/SnakeModal";
+import { StarAppModal } from "./projectModals/StarAppModal";
+import { StiModal } from "./projectModals/StiModal";
+import { StockAnalyzerModal } from "./projectModals/StockAnalyzerModal";
+import { TotalRiskModal } from "./projectModals/TotalRiskModal";
+import { ValbarometernModal } from "./projectModals/ValbarometernModal";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ProjectTile = (props: any) => {
-
-  const open = (ev : any) => {
+  const open = (ev: any) => {
     ev.preventDefault();
-    console.log(ev)
-    openModal(props.projectId);
+    props.onClick();
   }
 
   return (
@@ -19,137 +30,51 @@ const ProjectTile = (props: any) => {
   )
 }
 
-const gitHubRepoNames = {
-  risk: 'TotalRisk',
-  starapp: 'StarApp',
-  portfolio: 'martinsweb',
-  snake: 'GyroSnake',
-  instaanalytics: 'InstagramAnalytics',
-  wcc: 'EuroCup2021Simulator',
-  wh40k: 'Warhammer-40k-Unit-Simulator',
-  flappyDoge: 'FlappyDoge',
-  stockAnalyzer: 'StockAnalyzer',
-};
-const hardcodedProjectDependencies = {
-  snake: ['java', 'android', 'git', 'mysql'],
-  borghild: ['javascript', 'nodejs', 'machinelearning', 'tesseract', 'tensorflow', 'opencv', 'customvision'],
-  portfolio: ['git', 'npm', 'grunt', 'angular', 'babel', 'karma', 'jquery', 'bootstrap'],
-  risk: ['git', 'npm', 'grunt', 'angular', 'babel', 'jquery', 'bootstrap', 'electron', 'heroku', 'firebase', 'socket.io', 'nodejs'],
-  valbarometern: ['git', 'npm', 'grunt', 'html', 'css', 'javascript', 'mysql', 'firebase'],
-  sti: ['html', 'css', 'php', 'javascript', 'mysql', 'jquery'],
-  stockAnalyzer: ['html'],
-  boxByDoris: ['html', 'css'],
-  exjobb: ['dotnet', 'csharp', 'visualstudio', 'wireshark'],
-  mkp: ['java', 'html', 'css', 'android', 'svn'],
-  wcc: ['git', 'npm', 'grunt', 'html', 'css', 'javascript'],
-  flickrEditor: ['javascript', 'html', 'css'],
-  gbgmuaythai: ['javascript', 'hexo', 'html', 'css', 'graphql', 'express', 'mysql']
-};
-const gitHubUserName = 'ToWelie89';
-const dependenciesToLookForInPackage = [
-  'grunt',
-  'angular',
-  'webpack',
-  'babel',
-  'karma',
-  'react',
-  'jquery',
-  'bootstrap',
-  'electron',
-  'heroku',
-  'firebase',
-  'socket.io',
-  'nodejs'
-];
-
-const removeDuplicates = (array: any[]) => {
-  const dups = [];
-  const arr = array.filter((el) => {
-    // If it is not a duplicate, return true
-    if (dups.indexOf(el) === -1) {
-      dups.push(el);
-      return true;
-    }
-    return false;
-  });
-  return arr;
-}
-
 const Projects = () => {
+  const [openedModal, setOpenedModal] = useState('');
+  const navigate = useNavigate();
+  const { projectId } = useParams();
 
-  let db, usedDependencies, currentOpenProject, loading = undefined;
+  let loaded = false;
 
-  const localStorageDataIsOlderThanOneDay = (localStorageData: any) => {
-    const timeStamp = localStorageData.timeStamp;
-    const diff = Date.now() - timeStamp;
-    return (diff > (1000 * 60 * 60 * 24));
+  useEffect(() => {
+    if (!loaded) {
+      loaded = true;
+      if (projectId) {
+        setOpenedModal(projectId);
+      }
+    }
+  }, []);
+
+  const clickProjectTile = (id: string) => {
+    navigate(id);
+    setOpenedModal(id);
   }
 
-  const openProject = (projectId: string) => {
-    currentOpenProject = projectId;
-    /* $('#' + projectId + 'Modal').modal('toggle');
-
-    $('.carousel-control.left').click(function () {
-      $('.projectCarousel').carousel('prev');
-    });
-    $('.carousel-control.right').click(function () {
-      $('.projectCarousel').carousel('next');
-    });
-
-    $('.carousel-indicators li').on('click', function () {
-      $('.projectCarousel').carousel($(this).index());
-    }); */
-
-    //const localStorageData = JSON.parse(localStorage.getItem(`${this.currentOpenProject}StorageData`));
-
-    /* if (localStorageData && !this.localStorageDataIsOlderThanOneDay(localStorageData)) {
-      db = localStorageData.db;
-      usedDependencies = localStorageData.usedDependencies;
-      usedDependencies = removeDuplicates(this.vm.usedDependencies);
-      //this.initializeStatistics();
-      loading = false;
-    } else {
-      //this.getDataForRepoFromGithub();
-    } */
-  }
-
-  const reset = () => {
-    db = {
-      js: 0,
-      html: 0,
-      php: 0,
-      css: 0,
-      less: 0,
-      ts: 0,
-      xml: 0,
-      json: 0,
-      scss: 0,
-      cs: 0,
-      java: 0,
-      svg: 0
-    };
-    usedDependencies = [];
-    currentOpenProject = '';
+  const closeProjectTile = () => {
+    navigate('');
+    setOpenedModal('')
   }
 
   return (
     <div className="projects">
       <div className="mainContentItem full center" style={{ height: '100%', width: '100%', float: 'none', margin: '0 auto' }}>
-        <ProjectTile label="TotalRisk" projectId="risk" style={{ background: "url(src/assets/projectThumbnails/ecmaRisk2.png)", backgroundPosition: "center -15px" }} />
-        <ProjectTile label="Stock Analyzer" projectId="stockAnalyzer" style={{ background: "url(src/assets/projectThumbnails/stockAnalyzer.png)" }} />
-        <ProjectTile label="Portfolio" projectId="portfolio" style={{ background: "url(src/assets/projectThumbnails/portfolio.png)" }} />
-        <ProjectTile label="STI-Starcraft" projectId="sti" style={{ background: "url(src/assets/projectThumbnails/sti.png)" }} />
-        <ProjectTile label="Valbarometern" projectId="valbarometern" style={{ background: "url(src/assets/projectThumbnails/valbarometern.png)" }} />
-        <ProjectTile label="Borghild (D2R bot)" projectId="borghild" style={{ background: "url(src/assets/projectThumbnails/borghild.png)" }} />
-        <ProjectTile label="Gyro Snake" projectId="snake" style={{ background: "url(src/assets/projectThumbnails/snake.png)" }} />
-        <ProjectTile label="Instagram Analyzer" projectId="instaanalytics" style={{ background: "url(src/assets/projectThumbnails/instaanalytics.png)" }} />
-        <ProjectTile label="Bachelors thesis" projectId="exjobb" style={{ background: "url(src/assets/projectThumbnails/exjobb.png)" }} />
-        <ProjectTile label="World/Euro Cup Calculator" projectId="wcc" style={{ background: "url(src/assets/projectThumbnails/wcc.png)" }} />
-        <ProjectTile label="Box By Doris" projectId="boxByDoris" style={{ background: "url(src/assets/projectThumbnails/boxByDoris.png)" }} />
-        <ProjectTile label="Mobile Keyring" projectId="mkp" style={{ background: "url(src/assets/projectThumbnails/mkp.png)" }} />
-        <ProjectTile label="GBG Muay Thai" projectId="gbgmuaythai" style={{ background: "url(src/assets/projectThumbnails/gbgmuaythai.png)", backgroundPostionX: '-64px', backgroundPositionY: '-49px', backgroundSize: '160% auto !important' }} />
-        <ProjectTile label="Star App" projectId="starapp" style={{ background: "url(src/assets/projectThumbnails/starapp.png)" }} />
-        <ProjectTile label="FlappyDoge" projectId="flappyDoge" style={{ background: "url(src/assets/projectThumbnails/flappyDoge.png)" }} />
+        <ProjectTile onClick={() => clickProjectTile('risk')} label="TotalRisk" projectId="risk" style={{ background: "url(./../src/assets/projectThumbnails/ecmaRisk2.png)", backgroundPosition: "center -15px" }} />
+        <ProjectTile onClick={() => clickProjectTile('stockAnalyzer')} label="Stock Analyzer" projectId="stockAnalyzer" style={{ background: "url(./../src/assets/projectThumbnails/stockAnalyzer.png)" }} />
+        <ProjectTile onClick={() => clickProjectTile('portfolio')} label="Portfolio" projectId="portfolio" style={{ background: "url(./../src/assets/projectThumbnails/portfolio.png)" }} />
+        <ProjectTile onClick={() => clickProjectTile('sti')} label="STI-Starcraft" projectId="sti" style={{ background: "url(./../src/assets/projectThumbnails/sti.png)" }} />
+        <ProjectTile onClick={() => clickProjectTile('valbarometern')} label="Valbarometern" projectId="valbarometern" style={{ background: "url(./../src/assets/projectThumbnails/valbarometern.png)" }} />
+        <ProjectTile onClick={() => clickProjectTile('borghild')} label="Borghild (D2R bot)" projectId="borghild" style={{ background: "url(./../src/assets/projectThumbnails/borghild.png)" }} />
+        <ProjectTile onClick={() => clickProjectTile('massStlExporter')} label="Mass STL Exporter" projectId="massStlExporter" style={{ background: "url(./../src/assets/projectThumbnails/massStlExporter.png)" }} />
+        <ProjectTile onClick={() => clickProjectTile('wcc')} label="World/Euro Cup Calculator" projectId="wcc" style={{ background: "url(./../src/assets/projectThumbnails/wcc.png)" }} />
+        <ProjectTile onClick={() => clickProjectTile('gbgmuaythai')} label="GBG Muay Thai" projectId="gbgmuaythai" style={{ background: "url(./../src/assets/projectThumbnails/gbgmuaythai.png)", backgroundPostionX: '-64px', backgroundPositionY: '-49px', backgroundSize: '160% auto !important' }} />
+        <ProjectTile onClick={() => clickProjectTile('snake')} label="Gyro Snake" projectId="snake" style={{ background: "url(./../src/assets/projectThumbnails/snake.png)" }} />
+        <ProjectTile onClick={() => clickProjectTile('instaanalytics')} label="Instagram Analyzer" projectId="instaanalytics" style={{ background: "url(./../src/assets/projectThumbnails/instaanalytics.png)" }} />
+        <ProjectTile onClick={() => clickProjectTile('exjobb')} label="Bachelors thesis" projectId="exjobb" style={{ background: "url(./../src/assets/projectThumbnails/exjobb.png)" }} />
+        <ProjectTile onClick={() => clickProjectTile('boxByDoris')} label="Box By Doris" projectId="boxByDoris" style={{ background: "url(./../src/assets/projectThumbnails/boxByDoris.png)" }} />
+        <ProjectTile onClick={() => clickProjectTile('mkp')} label="Mobile Keyring" projectId="mkp" style={{ background: "url(./../src/assets/projectThumbnails/mkp.png)" }} />
+        <ProjectTile onClick={() => clickProjectTile('starapp')} label="Star App" projectId="starapp" style={{ background: "url(./../src/assets/projectThumbnails/starapp.png)" }} />
+        <ProjectTile onClick={() => clickProjectTile('flappyDoge')} label="FlappyDoge" projectId="flappyDoge" style={{ background: "url(./../src/assets/projectThumbnails/flappyDoge.png)" }} />
         {/*
       <div className="grid-item">
         <a href="" data-content="Star App" data-ng-click="controller.openProject('starapp')" style="background: url(../../build/assets/projectThumbnails/starapp.png)">
@@ -173,7 +98,23 @@ const Projects = () => {
         </div> */}
       </div>
 
-      <ValbarometernModal projectId="valbarometern" />
+
+      <TotalRiskModal onClose={() => closeProjectTile()} isOpen={openedModal === 'risk'} projectId="risk" />
+      <ValbarometernModal onClose={() => closeProjectTile()} isOpen={openedModal === 'valbarometern'} projectId="valbarometern" />
+      <StockAnalyzerModal onClose={() => closeProjectTile()} isOpen={openedModal === 'stockAnalyzer'} projectId="stockAnalyzer" />
+      <PortfolioModal onClose={() => closeProjectTile()} isOpen={openedModal === 'portfolio'} projectId="portfolio" />
+      <StiModal onClose={() => closeProjectTile()} isOpen={openedModal === 'sti'} projectId="sti" />
+      <BorghildModal onClose={() => closeProjectTile()} isOpen={openedModal === 'borghild'} projectId="borghild" />
+      <SnakeModal onClose={() => closeProjectTile()} isOpen={openedModal === 'snake'} projectId="snake" />
+      <InstagramAnalyzerModal onClose={() => closeProjectTile()} isOpen={openedModal === 'instaanalytics'} projectId="sninstaanalyticsake" />
+      <BachelorsThesisModal onClose={() => closeProjectTile()} isOpen={openedModal === 'exjobb'} projectId="exjobb" />
+      <FootballCupCalculatorModal onClose={() => closeProjectTile()} isOpen={openedModal === 'wcc'} projectId="wcc" />
+      <BoxByDorisModal onClose={() => closeProjectTile()} isOpen={openedModal === 'boxByDoris'} projectId="boxByDoris" />
+      <MobileKeyringModal onClose={() => closeProjectTile()} isOpen={openedModal === 'mkp'} projectId="mkp" />
+      <StarAppModal onClose={() => closeProjectTile()} isOpen={openedModal === 'starapp'} projectId="starapp" />
+      <GbgMuayThaiModal onClose={() => closeProjectTile()} isOpen={openedModal === 'gbgmuaythai'} projectId="gbgmuaythai" />
+      <FlappyDogeModal onClose={() => closeProjectTile()} isOpen={openedModal === 'flappyDoge'} projectId="flappyDoge" />
+      <MassStlExporterModal onClose={() => closeProjectTile()} isOpen={openedModal === 'massStlExporter'} projectId="massStlExporter" />
     </div>
   );
 }

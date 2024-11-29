@@ -34,7 +34,12 @@ const updateTextureEncoding = (object) => {
 
 window.initiate3dModel = (gltfSource, containerName, enableOrbit = true, cameraConfig = null, childrenCallback = null, loopingAnimationsFilter = undefined, playOnceAnimationsFilter = undefined, orbitSettings = false, clearColor = 0x000000) => {
     console.log('initiate3dModel', gltfSource, containerName)
-    const bbox = document.getElementById(containerName).getBoundingClientRect();
+
+    /* if (!document.getElementById(containerName)) {
+        return;
+    } */
+
+    const bbox = document.querySelector(containerName).getBoundingClientRect();
     const scene = new THREE.Scene();
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -48,7 +53,7 @@ window.initiate3dModel = (gltfSource, containerName, enableOrbit = true, cameraC
     renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.setClearColor(clearColor);
     //renderer.setClearAlpha(0);
-    document.getElementById(containerName).appendChild(renderer.domElement);
+    document.querySelector(containerName).appendChild(renderer.domElement);
 
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.35);
     scene.add(ambientLight);

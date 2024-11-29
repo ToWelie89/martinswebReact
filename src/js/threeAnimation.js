@@ -304,7 +304,7 @@ window.start3dAnimation = () => {
 
     function animate() {
         target.x = (1 - mouse.x) * 0.0002;
-        target.y = (1 - mouse.y) * 0.0002;
+        target.y = (1 - mouse.y) * 0.0001;
         target.y -= 0.3
 
         if (camera) {
