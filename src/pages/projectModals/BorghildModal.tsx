@@ -1,28 +1,38 @@
-import { LoadBox } from "../components/LoadBox";
-import ProjectModal from "../components/ProjectModal";
-import TechDependencies from "../components/TechDependencies";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import ProjectModalHeader from "./projectModalComponents/ProjectModalHeader";
-import { useState } from "react";
+import { LoadBox } from '../components/LoadBox';
+import ProjectModal from '../components/ProjectModal';
+import TechDependencies from '../components/TechDependencies';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import ProjectModalHeader from './projectModalComponents/ProjectModalHeader';
 
 export const BorghildModal = (props: any) => {
-    let loading = false;
+  let loading = false;
 
-    const tabs = ['Screenshots'];
-    const dependencies = ['javascript', 'nodejs', 'machinelearning', 'tesseract', 'tensorflow', 'opencv', 'customvision', 'electron'];
+  const dependencies = [
+    'javascript',
+    'nodejs',
+    'machinelearning',
+    'tesseract',
+    'tensorflow',
+    'opencv',
+    'customvision',
+    'electron',
+  ];
 
-    const [activeTab, setActiveTab] = useState(tabs[0]);
+  return (
+    <ProjectModal
+      id="borghildModal"
+      onClose={props.onClose}
+      isOpen={props.isOpen}
+    >
+      <ProjectModalHeader
+        label={'Borghild (D2R bot)'}
+        onClose={props.onClose}
+      />
+      <div className="modal-body">
+        {loading ? <LoadBox /> : null}
+        <TechDependencies dependencies={dependencies}></TechDependencies>
 
-    return (
-        <ProjectModal id="borghildModal" onClose={props.onClose} isOpen={props.isOpen}>
-            <ProjectModalHeader label={"Borghild (D2R bot)"} onClose={props.onClose} />
-            <div className="modal-body">
-                {
-                    loading ? <LoadBox /> : null
-                }
-                <TechDependencies dependencies={dependencies}></TechDependencies>
-
-                {/* <div className="projectTabsContainer marginTop">
+        {/* <div className="projectTabsContainer marginTop">
                     {
                         tabs.map((x, i) => (
                             <div key={"modal-tab-" + i} className={`projectTab ${x === activeTab ? 'projectTab--selected' : ''}`} onClick={() => setActiveTab(x)}>
@@ -52,13 +62,10 @@ export const BorghildModal = (props: any) => {
                             ) : null
                     }
                 </div> */}
-                {/* Description */}
-                <p className="marginTop--double">
-                    Coming soon
-                </p>
-            </div>
-            <div className="modal-footer">
-            </div>
-        </ProjectModal>
-    )
-}
+        {/* Description */}
+        <p className="marginTop--double">Coming soon</p>
+      </div>
+      <div className="modal-footer"></div>
+    </ProjectModal>
+  );
+};

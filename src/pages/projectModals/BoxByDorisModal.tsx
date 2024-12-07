@@ -63,7 +63,7 @@ export const BoxByDorisModal = (props: any) => {
             </div>
             <div className="modal-footer">
                 <a className="button floatRight" href="./../src/assets/screenshots/boxbydoris.png" target="_blank">
-                    <p text="Screenshot"></p>
+                    <p data-text="Screenshot"></p>
                 </a>
             </div>
         </ProjectModal>

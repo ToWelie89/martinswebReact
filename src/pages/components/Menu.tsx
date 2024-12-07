@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 const MenuWrapper = styled.div``;
 const SubMenuWrapper = styled.div``;
@@ -8,16 +8,18 @@ const SubMenuWrapper = styled.div``;
 const SubMenuLink = (props: any) => {
   const navigate = useNavigate();
 
-  const currentPage = getPageName()
+  const currentPage = getPageName();
 
   return (
     <div
-      className={`link subMenuLink ${(currentPage === props.name || currentPage === props.path) ? 'selected' : ''}`}
+      className={`link subMenuLink ${currentPage === props.name || currentPage === props.path ? 'selected' : ''}`}
     >
-      <div onClick={() => {
-        navigate(props.to);
-        props.callback();
-      }}>
+      <div
+        onClick={() => {
+          navigate(props.to);
+          props.callback();
+        }}
+      >
         {props.children}
       </div>
     </div>
@@ -28,11 +30,11 @@ const MenuLink = styled(Link)``;
 
 const getPageName = () => {
   var page = window.location.pathname;
-  page = page.replace(".html", "");
-  page = page.replace(".php", "");
-  page = page.replace("/", "");
-  if (page === "") {
-    page = "start";
+  page = page.replace('.html', '');
+  page = page.replace('.php', '');
+  page = page.replace('/', '');
+  if (page === '') {
+    page = 'start';
   }
   return page;
 };
@@ -40,44 +42,44 @@ const getPageName = () => {
 const getCurrentMainPage = () => {
   var page = getPageName();
   if (
-    page === "start" ||
-    page === "profile" ||
-    page === "projects" ||
-    page === "misc"
+    page === 'start' ||
+    page === 'profile' ||
+    page === 'projects' ||
+    page === 'misc'
   ) {
     return page;
   } else if (
-    page.includes("projects/") ||
-    page === "flappyDoge" ||
-    page === "gyroSnakeEditor"
+    page.includes('projects/') ||
+    page === 'flappyDoge' ||
+    page === 'gyroSnakeEditor'
   ) {
-    return "projects";
-  } else if (page === "bio" || page === "cv") {
-    return "profile";
-  } else if (page === "3dprints" || page === "3dmodels") {
-    return "3d";
-  } else if (page === "blog" || page === "art") {
-    return "misc";
-  } else if (page.includes("blog/")) {
-    return "misc";
+    return 'projects';
+  } else if (page === 'bio' || page === 'cv') {
+    return 'profile';
+  } else if (page === '3dprints' || page === '3dmodels') {
+    return '3d';
+  } else if (page === 'blog' || page === 'art') {
+    return 'misc';
+  } else if (page.includes('blog/')) {
+    return 'misc';
   } else {
-    return "NONE";
+    return 'NONE';
   }
 };
 
 interface IMenuItem {
-  name: string;
+  name: string | undefined;
   path?: string;
   children?: Array<IMenuItem>;
 }
 
 const Menu = () => {
-  const [selectedParent, setSelectedParent] = useState({
+  const [selectedParent, setSelectedParent] = useState<IMenuItem>({
     name: undefined,
     path: undefined,
     children: [],
   });
-  const [selectedMainPage, setSelectedMainPage] = useState("");
+  const [selectedMainPage, setSelectedMainPage] = useState('');
   let location = useLocation();
 
   useEffect(() => {
@@ -87,7 +89,9 @@ const Menu = () => {
   useEffect(() => {
     setSelectedMainPage(getCurrentMainPage());
 
-    const item = MENU_CONFIGURATION.find(x => x.name === getCurrentMainPage());
+    const item = MENU_CONFIGURATION.find(
+      (x) => x.name === getCurrentMainPage()
+    );
 
     if (item && item.children && item.children.length > 0) {
       setSelectedParent(item);
@@ -98,7 +102,7 @@ const Menu = () => {
   useEffect(() => {
     setSelectedMainPage(getCurrentMainPage());
 
-    const item = MENU_CONFIGURATION.find(x => x.name === selectedParent.name);
+    const item = MENU_CONFIGURATION.find((x) => x.name === selectedParent.name);
 
     if (item && item.children && item.children.length > 0) {
       $('.subMenuBar').slideDown(350);
@@ -107,44 +111,44 @@ const Menu = () => {
 
   const MENU_CONFIGURATION: IMenuItem[] = [
     {
-      name: "start",
-      path: "",
+      name: 'start',
+      path: '',
     },
     {
-      name: "profile",
+      name: 'profile',
       children: [
         {
-          name: "bio",
+          name: 'bio',
         },
         {
-          name: "cv",
+          name: 'cv',
         },
       ],
     },
     {
-      name: "projects",
+      name: 'projects',
     },
     {
-      name: "3d",
+      name: '3d',
       children: [
         {
-          name: "3d prints",
-          path: '3dprints'
+          name: '3d prints',
+          path: '3dprints',
         },
         {
-          name: "3d models",
-          path: '3dmodels'
+          name: '3d models',
+          path: '3dmodels',
         },
       ],
     },
     {
-      name: "misc",
+      name: 'misc',
       children: [
         {
-          name: "art",
+          name: 'art',
         },
         {
-          name: "blog",
+          name: 'blog',
         },
       ],
     },
@@ -157,8 +161,9 @@ const Menu = () => {
           <MenuLink
             key={x.name}
             to={`/${x.path !== undefined ? x.path : x.name}`}
-            className={`link mainMenuLink ${x.name === selectedMainPage ? "active" : ""
-              }`}
+            className={`link mainMenuLink ${
+              x.name === selectedMainPage ? 'active' : ''
+            }`}
             onClick={(e) => {
               if (x.children) {
                 e.preventDefault();
@@ -169,8 +174,8 @@ const Menu = () => {
               //$('.subMenuBar').slideDown(350);
             }}
           >
-            <span data-hover={x.name.toUpperCase()}>
-              {x.name.toUpperCase()}
+            <span data-hover={x.name ? x.name.toUpperCase() : ''}>
+              {x.name ? x.name.toUpperCase() : ''}
             </span>
           </MenuLink>
         ))}
@@ -178,13 +183,18 @@ const Menu = () => {
       {/* {JSON.stringify(selectedParent)} */}
       <SubMenuWrapper id="subMenuContainer">
         <div
-          className={`subMenuBar ${selectedParent?.children ? "" : "hidden"}`}
+          className={`subMenuBar ${selectedParent?.children ? '' : 'hidden'}`}
         >
           {selectedParent?.children?.map((x: IMenuItem) => (
-            <SubMenuLink name={x.path ?? x.name} key={x.name} to={`/${x.path ?? x.name}`} callback={() => {
-              setSelectedMainPage(getCurrentMainPage());
-            }}>
-              {x.name.toUpperCase()}
+            <SubMenuLink
+              name={x.path ?? x.name}
+              key={x.name}
+              to={`/${x.path ?? x.name}`}
+              callback={() => {
+                setSelectedMainPage(getCurrentMainPage());
+              }}
+            >
+              {x.name ? x.name.toUpperCase() : ''}
             </SubMenuLink>
           ))}
         </div>
