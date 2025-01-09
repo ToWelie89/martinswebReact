@@ -21,6 +21,31 @@ const run = async () => {
     await copyFolder('src/documents', 'dist/src/documents');
     await copyFolder('src/miscFiles', 'dist/src/miscFiles');
     await copyFolder('.htaccess', 'dist/.htaccess');
+
+fs.symlink("/var/www/martinswebReact/pi",
+        "/var/www/martinswebReact/dist/pi", 'dir', (err) => {
+  if (err)
+    console.log(err);
+  else {
+    console.log("\nSymlink created\n");
+  }
+})
+fs.symlink("/var/www/martinswebReact/sti",
+        "/var/www/martinswebReact/dist/sti", 'dir', (err) => {
+  if (err)
+    console.log(err);
+  else {
+    console.log("\nSymlink created\n");
+  }
+})
+fs.symlink("/var/www/martinswebReact/totalrisk",
+        "/var/www/martinswebReact/dist/totalrisk", 'dir', (err) => {
+  if (err)
+    console.log(err);
+  else {
+    console.log("\nSymlink created\n");
+  }
+})
 };
 
 run();
