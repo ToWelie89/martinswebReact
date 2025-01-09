@@ -12,6 +12,7 @@ function Bio() {
           <a href="http://www.github.com/ToWelie89" target="_blank"><i className="fab fa-github fa-3x"></i></a>
           <a href="https://twitter.com/Martin_Sonesson" target="_blank"><i className="fab fa-twitter fa-3x"></i></a>
           <a href="http://stackoverflow.com/users/1408603/martingo89" target="_blank"><i className="fab fa-stack-overflow fa-3x"></i></a>
+          <a href="https://www.instagram.com/sonesson.mini.painting/" target="_blank"><i className="fab fa-instagram fa-3x"></i></a>
           <a href="https://dribbble.com/martinsonesson" target="_blank"><i className="fab fa-dribbble fa-3x"></i></a>
           <a href="http://martinsonesson.wordpress.com" target="_blank"><i className="fab fa-wordpress fa-3x"></i></a>
           {/*
