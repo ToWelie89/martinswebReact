@@ -46,6 +46,14 @@ fs.symlink("/var/www/martinswebReact/totalrisk",
     console.log("\nSymlink created\n");
   }
 })
+fs.symlink("/var/www/martinswebReact/pi/Cults3DSellerStats/dist",
+        "/var/www/martinswebReact/dist/cults", 'dir', (err) => {
+  if (err)
+    console.log(err);
+  else {
+    console.log("\nSymlink created\n");
+  }
+})
 };
 
 run();
