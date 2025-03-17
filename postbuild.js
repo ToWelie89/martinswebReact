@@ -22,6 +22,8 @@ const run = async () => {
     await copyFolder('src/miscFiles', 'dist/src/miscFiles');
     await copyFolder('.htaccess', 'dist/.htaccess');
     await copyFolder('browser-extension-test-site.html', 'dist/browser-extension-test-site.html');
+    await copyFolder('browserExtensionTest', 'dist/browserExtensionTest');
+    await copyFolder('redirect_youtube_mass_stl.php', 'dist/redirect_youtube_mass_stl.php');
 
 fs.symlink("/var/www/martinswebReact/pi",
         "/var/www/martinswebReact/dist/pi", 'dir', (err) => {
