@@ -19,6 +19,7 @@ export const PortfolioModal = (props: any) => {
     'apache',
     'less',
     'threejs',
+    'ubuntu',
   ];
 
   return (
@@ -35,34 +36,23 @@ export const PortfolioModal = (props: any) => {
         {/* Description */}
         <p className="marginTop--double">
           This is the very site you're on right now, my personal website and
-          portfolio. I began working on a first portfolio that can still be
-          found on{' '}
-          <a href="http://www.martins-web.com" target="_blank">
-            martins-web.com
-          </a>
-          but I only got a design down and then scrapped the project. I wasn't
-          satisfied with some aspects of the design and I also wanted to host
-          the site myself whereas this one is hosted via one.com. In august 2014
-          I began working on this new portfolio.
+          portfolio. I've always had a personal website but I have remade it
+          many times with new designs and using new technologies. This latest
+          version I made in 2024 and it's built with React + Typescript as the
+          main technologies. I also use Vite as the bundler and styled-components
+          easily styled React components. The site is also fully responsive.
         </p>
         <p className="marginTop">
-          This site uses modern webdesign technologies. jQuery is used a lot but
-          also other frameworks such as Angular and requirejs for handling
-          MV*-patterns on the clientside, for structuring scripts and handling
-          module loading. I also work with less to easier structure CSS
-          stylings. The complete source code is versioned via Github which you
-          can view below by clicking the Code-button. I develop on my local
-          machine using WAMP-server and whenever a certain part feels complete I
-          push it to Github and then pull it from the server for easy and fast
-          deployment.
+          The older version of this site that I used up until 2024 looked almost
+          identical, but it was built using Angular instead. The source code
+          for both the React version (newer version) and the older Angular version
+          can be found at the bottom. The older version also used older JS libraries
+          such as jQuery and requirejs that I wanted to move away from.
         </p>
         <p className="marginTop">
-          The server itself is a Raspberry Pi that I manage myself. It runs
-          Raspbian OS, NodeJS, Apache, php, SSH-client and other useful tools
-          for making it into a fully capable webserver. It is plugged into my
-          router which is configured to forward HTTP and SSH ports to the
-          Raspberry Pi. I also have cronjobs in place to handle backup of data
-          and updating the DynDNS pointer for my domain operator..
+          I host this website personally on my own webserver that I maintain myself.
+          It's a HP Mini PC that I converted into a home server. It runs Ubuntu server
+          with Apache.
         </p>
       </div>
       <div className="modal-footer">

@@ -16,6 +16,7 @@ import { StockAnalyzerModal } from "./projectModals/StockAnalyzerModal";
 import { TotalRiskModal } from "./projectModals/TotalRiskModal";
 import { ValbarometernModal } from "./projectModals/ValbarometernModal";
 import { useNavigate, useParams } from "react-router-dom";
+import { CultsSellerModal } from "./projectModals/CultsSellerModal";
 
 const ProjectTile = (props: any) => {
   const open = (ev: any) => {
@@ -59,16 +60,17 @@ const Projects = () => {
   return (
     <div className="projects">
       <div className="mainContentItem full center" style={{ height: '100%', width: '100%', float: 'none', margin: '0 auto' }}>
-        <ProjectTile onClick={() => clickProjectTile('risk')} label="TotalRisk" projectId="risk" style={{ background: "url(./../src/assets/projectThumbnails/ecmaRisk2.png)", backgroundPosition: "center -15px" }} />
+        <ProjectTile onClick={() => clickProjectTile('risk')} label="TotalRisk" projectId="risk" style={{ background: "url(./../src/assets/projectThumbnails/ecmaRisk2.png)", backgroundSize: 'cover', backgroundPosition: "center -15px" }} />
         <ProjectTile onClick={() => clickProjectTile('stockAnalyzer')} label="Stock Analyzer" projectId="stockAnalyzer" style={{ background: "url(./../src/assets/projectThumbnails/stockAnalyzer.png)" }} />
         <ProjectTile onClick={() => clickProjectTile('portfolio')} label="Portfolio" projectId="portfolio" style={{ background: "url(./../src/assets/projectThumbnails/portfolio.png)" }} />
+        <ProjectTile onClick={() => clickProjectTile('cultsSeller')} label="Cults3D Stats" projectId="cultsSeller" style={{ background: "url(./../src/assets/projectThumbnails/cults3dstats.png)", backgroundPositionY: '-60px' }} />
         <ProjectTile onClick={() => clickProjectTile('sti')} label="STI-Starcraft" projectId="sti" style={{ background: "url(./../src/assets/projectThumbnails/sti.png)" }} />
         <ProjectTile onClick={() => clickProjectTile('valbarometern')} label="Valbarometern" projectId="valbarometern" style={{ background: "url(./../src/assets/projectThumbnails/valbarometern.png)" }} />
         <ProjectTile onClick={() => clickProjectTile('borghild')} label="Borghild (D2R bot)" projectId="borghild" style={{ background: "url(./../src/assets/projectThumbnails/borghild.png)" }} />
-        <ProjectTile onClick={() => clickProjectTile('massStlExporter')} label="Mass STL Exporter" projectId="massStlExporter" style={{ background: "url(./../src/assets/projectThumbnails/massStlExporter.png)" }} />
+        <ProjectTile onClick={() => clickProjectTile('massStlExporter')} label="Mass STL Exporter" projectId="massStlExporter" style={{ background: "url(./../src/assets/projectThumbnails/massStlExporter.png)", backgroundSize: '108% !important', backgroundPositionY: '-63px', backgroundPositionX: '-2px' }} />
         <ProjectTile onClick={() => clickProjectTile('wcc')} label="World/Euro Cup Calculator" projectId="wcc" style={{ background: "url(./../src/assets/projectThumbnails/wcc.png)" }} />
-        <ProjectTile onClick={() => clickProjectTile('gbgmuaythai')} label="GBG Muay Thai" projectId="gbgmuaythai" style={{ background: "url(./../src/assets/projectThumbnails/gbgmuaythai.png)", backgroundPostionX: '-64px', backgroundPositionY: '-49px', backgroundSize: '160% auto !important' }} />
-        <ProjectTile onClick={() => clickProjectTile('snake')} label="Gyro Snake" projectId="snake" style={{ background: "url(./../src/assets/projectThumbnails/snake.png)" }} />
+        <ProjectTile onClick={() => clickProjectTile('gbgmuaythai')} label="GBG Muay Thai" projectId="gbgmuaythai" style={{ background: "url(./../src/assets/projectThumbnails/gbgmuaythai.png)", backgroundPositionX: '-33px', backgroundPositionY: '-40px' }} />
+        <ProjectTile onClick={() => clickProjectTile('snake')} label="Gyro Snake" projectId="snake" style={{ background: "url(./../src/assets/projectThumbnails/snake.png)", backgroundPositionY: '-80px' }} />
         <ProjectTile onClick={() => clickProjectTile('instaanalytics')} label="Instagram Analyzer" projectId="instaanalytics" style={{ background: "url(./../src/assets/projectThumbnails/instaanalytics.png)" }} />
         <ProjectTile onClick={() => clickProjectTile('exjobb')} label="Bachelors thesis" projectId="exjobb" style={{ background: "url(./../src/assets/projectThumbnails/exjobb.png)" }} />
         <ProjectTile onClick={() => clickProjectTile('boxByDoris')} label="Box By Doris" projectId="boxByDoris" style={{ background: "url(./../src/assets/projectThumbnails/boxByDoris.png)" }} />
@@ -115,6 +117,7 @@ const Projects = () => {
       <GbgMuayThaiModal onClose={() => closeProjectTile()} isOpen={openedModal === 'gbgmuaythai'} projectId="gbgmuaythai" />
       <FlappyDogeModal onClose={() => closeProjectTile()} isOpen={openedModal === 'flappyDoge'} projectId="flappyDoge" />
       <MassStlExporterModal onClose={() => closeProjectTile()} isOpen={openedModal === 'massStlExporter'} projectId="massStlExporter" />
+      <CultsSellerModal onClose={() => closeProjectTile()} isOpen={openedModal === 'cultsSeller'} projectId="cultsSeller" />
     </div>
   );
 }
